@@ -1,0 +1,1 @@
+    jar cvf ex5.jar README filesprocessing/*.java filesprocessing/orders/*.java filesprocessing/Filters/*.java filesprocessing/Exceptions/*.java

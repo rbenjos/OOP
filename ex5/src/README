@@ -1,0 +1,240 @@
+roeyby
+
+
+=============================
+=      File description     =
+=============================
+
+Exceptions - the packege of all the exceptions made for this exercise:
+
+FilterErrorException- this class represents an exception that is being thrown from a type 2 error
+in the filter subsection
+
+NoFilterException- this class represents an exception that is being thrown from a type 1 error
+in the filter subsection
+
+NoOrderException- this class represents an exception that is being thrown from a type 1 error
+in the order subsection
+
+OrderErrorException- this class represents an exception that is being thrown from a type 2 error
+in the order subsection
+
+
+Filters - the packege of all the filters and filter related classes made for this exercise:
+
+AllFilter-  this class represents a filter who filters all files, returning true always
+
+BetweenFilter- this class represents a filter that filters only files who's size is between 2 thresholds
+
+
+ExecutableFilter- this class filters files who are executable
+
+
+FileFilterer-  this class has a single static method, the filterFiles method.
+the method takes in an array of files and a filter object and returns
+an  array of all the files that matched the filter's criteria
+
+
+FileNameFilter- this class represents a filter who filters files who's name match a given string
+
+
+Filter- this abstract class represents an abstract filter
+all filters has a filterFile method which takes in a file
+and returns true if that file has matched a certain criteria and false if not
+
+FilterFactory- this class represents the filter factory, it is in charge of creating filters
+
+
+GreaterThanFilter- this class represents a filter that filters files who's size is above a given threshold
+
+
+HiddenFilter- this class filters files who are hidden
+
+
+NameContainsFilter- this class represents a filter who filters files who's name contains a given string
+
+
+NamePrefixFilter- this class represents a filter who filters files who's name starts with a given string
+
+
+NameSuffixFilter- this class represents a filter who filters files who's name ends with a given string
+
+
+NegatorDecorator- this class is a decorator class, it takes in a certain filter, and negates that filter's decision
+whether we should or should'nt filter a certain file by delegation
+
+NotDirectoryDecorator- this class is a decorator class, it takes in a certain filter, adds the condition
+of not being a directory to that filter
+
+SmallerThanFilter- this class represents a filter that filters files who's size is bellow a given threshold
+
+
+WritableFilter- this class filters files who are writable
+
+
+YesOrNoFilter- this class represents an abstract YesOrNo filter, a filter that takes in
+only the YES/NO values as parameters
+
+orders - this package contains all the order comparator and the order files related to this exercise:
+
+AbsOrderComparator - this class represents a comparator that compares files based on the
+lexical value of their absolute path
+
+FileSorter- this class has only static methods, its only purpose is to sort files with a quicksort implementation
+
+OrderComparator-   this class represents an abstract order comperator for files
+
+
+OrderComparatorFactory-   this class represents the order comparator factory,
+it is in charge of creating order comparator for our lists of files
+
+ReverseDecorator-  this class represents the "reverse" decorator,
+used to reverse the comparing method of other comparator, and by that,
+reversing the order on the list we are ordering
+
+SizeOrderComparator-   this class represents a comparator that compares files based on their size
+
+TypeOrderComparator-   this class represents a comparator that compares files based on their type
+
+
+DirectoryProcessor-  this class is the manager class, runs all the code, printing filtered
+and ordered lists of files with commands given from the arguments
+
+Parser -  this class represents a parser for our particular mission, it parses the commands file given
+and makes distinct sections out of it
+
+Section -   this class represents a section of commands, it has a filter subsection and an order subsection
+
+=============================
+=          Design           =
+=============================
+
+-Extensibility- very extendable, more filters and orderers could be added easily, just by adjusting the
+factories and adding their own classes. and with a little help from additional decorators, more
+functionalities could be added to the filters (like AND, OR )
+
+-Modularity- as modular as possible, with many classes and subclasses, each one can be edited independently.
+again, the use of decorators helped a lot. even the parser is modular and uses methods to validate
+the lines read, and throw exceptions accordingly
+
+-Intuitiveness and understandability- all code written fairly simply and very well documented, the only
+exception is the quicksort algorithm, which i tried to explain, but its still not very intuitive
+
+-Representation of the classes and their relationships-
+
+-> inheritence
+
+Filter -> YesOrNoFilter -> ( HiddenFilter, ExecutableFilter, WritableFilter)
+          AllFilter
+          BetweenFilter
+          FileFilterer
+          FileNameFilter
+          Filter
+          FilterFactory
+          GreaterThanFilter
+          NameContainsFilter
+          NamePrefixFilter
+          NameSuffixFilter
+          NegatorDecorator
+          NotDirectoryDecorator
+          SmallerThanFilter
+
+FilterFactory
+
+
+OrderComparator -> AbsOrderComparator
+                   ReverseDecorator
+                   SizeOrderComparator
+                   TypeOrderComparator
+
+FileSorter
+OrderComparatorFactory
+
+DirectoryProcessor
+Parser
+Section
+
+
+Exception -> FilterErrorException
+             NoFilterException
+             NoOrderException
+             OrderErrorException
+
+=============================
+=  Implementation details   =
+=============================
+
+the filters were implemented with a custom filter class, not implementing any known interface.
+the superclass which is abstract forces to implement the filterFile method, which takes in a file
+and returns a boolean.
+adding the NOT suffix functionality was done with a decorator, and so the functionality of checking
+for not being a directory
+
+the orderers were implemented with a comparator interface, again, making it very comfortable to use
+them for sorting, the REVERSE functionality was added with a decorator as well
+
+in the parser, i used a loop and a method to validate each line modularily
+
+the section itself held the filter and the orderers and caught their exceptions which were
+the type 1 errors.
+
+i decided to make a YesOrNoFilter abstract class, because the three filters which receive these
+values are built very similarly and it saved time and codelines
+
+in the following classes ( NamePrefixFilter,NameSuffixFilter,NameContainsFilter,FileNameFilter) i used
+java's method to compare strings and substrings
+
+for extra details when handling exceptions, i made the following exception classes
+(FilterErrorException,NoFilterException,NoOrderException,OrderErrorException)
+this way i could throw them based on the error that just happened and respond with more neuance
+
+=============================
+=    Answers to questions   =
+=============================
+
+1. Explain all your design choices in detail.
+
+allready explained in the implementation details section
+
+2. Describe the exceptions hierarchy you used in order to handle errors in the program. Explain
+the considerations that made you choose that specific design.
+
+there was no actual hirarchy, because there were 4 main scenarios that forced me to raise an exception,
+establishing a hirarchy didnt seem necessary, as for every scenario, only 2 of them had something in
+common. their names were informative enough, and they were well documented, so i figured that for this
+small amount of scenarios it is not necessary.
+
+the following exceptions were created:
+
+NoFilterException
+NoOrderException
+
+OrderErrorException
+FilterErrorException
+
+the first 2 regarding type 2 errors in the filter subsection or order subsection which were handled by the main
+function in the DirectoryProcessor class
+
+the second 2 regarding type 1 errors in the filter subsection or order subsection which were handled
+in the section class, when the filter or orderer were created.
+
+of course i could divide it into more and more scenarios such as:
+
+FilterErrorException -> type1FilterErrorException -> numberIssueType1FilterErrorException ->
+NegativeNumberType1FilterErrorException
+
+and on and on, but this much detail, even though informative, seemed confusing and unnecessary for
+a task that is still relatively simple.
+
+i imagine that when a system grows larger more detailed exceptions are needed in order to make
+debugging not only easier, but entirely possible
+
+
+3. How did you sort your matched files? Did you use a data structure for this purpose? If so,
+what data structure and why?
+
+
+i compared multiple sorting algorithms, and noticed that quicksort was efficient and relatively
+simple, so i compared multiple implementations of that algorithm and based mine on the most intuitive one.
+i did not use any additional data structure for that purpose, and the documentation for the sorting
+algorithm can be found on the FileSorter class
