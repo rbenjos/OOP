@@ -12,16 +12,9 @@ import java.util.List;
  */
 public interface IparsingRule {
 	enum ParserTypes {SIMPLE, ST_MOVIE, ST_TV}
+	public static long SerialVersionUID =1;
 	int MAXLINELENGTH = 256;
 
-	/**
-	 * A distance meaasure between WordResult objects. Used to sort results by some confidence measure
-	 * @param first     First WordResult object
-	 * @param second    Second WordResult object
-	 * @param queryWords    The actual query sent to the indexer
-	 * @return  An integer representing some distance measure between the results.
-	 */
-	int getWordDistance(WordResult first, WordResult second, String[] queryWords);
 
 	/**
 	 * A parser for a single block of text
@@ -38,12 +31,6 @@ public interface IparsingRule {
 	 * @return  A list of Block objects describing the file.
 	 */
 	List<Block> parseFile(RandomAccessFile inputFile);
-
-	// buffering
-
-	// find regexes
-
-	// create Block
 
 	/**
 	 * Utility method to create a matcher regex for an arbitrary list of words.
@@ -65,4 +52,38 @@ public interface IparsingRule {
 	 * @throws IOException  If the RAF misbehaves.
 	 */
 	void printResult(WordResult wordResult) throws IOException;
+
+
+	static String RAFToString(RandomAccessFile file) throws IOException {
+		// make byte array
+		file.seek(0);
+		int length = (int)file.length();
+		byte[] RAFArray = new byte[length];
+		// read all file into byte array
+		file.read(RAFArray);
+
+		// make string with byte array
+
+		String RAFString = new String(RAFArray);
+
+		// return string
+
+		return RAFString;
+	}
+
+	static String RAFToString(RandomAccessFile file, long start, long end) throws IOException {
+		// make byte array
+		int length = (int)(end-start);
+		byte[] RAFArray = new byte[length];
+		// read all file into byte array
+		file.read(RAFArray,(int)start,length);
+
+		// make string with byte array
+
+		String RAFString = new String(RAFArray);
+
+		// return string
+
+		return RAFString;
+	}
 }

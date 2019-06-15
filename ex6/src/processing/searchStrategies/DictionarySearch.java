@@ -23,6 +23,7 @@ public class DictionarySearch implements IsearchStrategy {
 	@Override
 	public List<? extends WordResult> search(String query) {
 		//TODO implement me!!!
+		return null;
 	}
 
 

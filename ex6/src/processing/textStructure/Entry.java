@@ -64,14 +64,23 @@ public class Entry implements Iterable<Block>, Serializable {
         return blocks.iterator();
     }
 
+    /**
+     * @return the path of the file the entry is representing
+     */
     public String getPath() {
         return filePath;
     }
 
+    /**
+     * @return the checksum made for this file using the md5
+     */
     public String getChecksum(){
         return MD5.getMd5(entryText);
     }
 
+    /**
+     * @return the RAF object made from the file of this entry
+     */
     public RandomAccessFile getEntryRAF() {
         return entryRAF;
     }

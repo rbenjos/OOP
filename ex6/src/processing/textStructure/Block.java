@@ -1,8 +1,14 @@
 package processing.textStructure;
 
+import processing.parsingRules.IparsingRule;
+
 import java.io.File;
+import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * This class represents an arbitrary block of text within a file
@@ -13,6 +19,11 @@ public class Block {
     private long startIdx;                  //index within the file where the block begins
     private long endIdx;                    //index within the file where the block ends
     private RandomAccessFile inputFile;     //the RAF object pointing to the physical file in the file system
+    private String blockString;
+
+
+    private List<String> metaData;
+    private List<String> data = new ArrayList<>();
 
     /**
      * Constructor
@@ -25,6 +36,10 @@ public class Block {
         this.inputFile = inputFile;
         this.startIdx = startIdx;
         this.endIdx = endIdx;
+        try {buildString();
+        } catch (IOException e){
+            System.err.println("not a file");
+        }
     }
 
 
@@ -32,6 +47,10 @@ public class Block {
         this.entry = entry;
         this.startIdx = startIdx;
         this.endIdx = endIdx;
+        try {buildString();
+        } catch (IOException e){
+            System.err.println("not a file");
+        }
     }
 
     ///////// getters //////////
@@ -64,7 +83,12 @@ public class Block {
      * @return String of all metadata.
      */
     public String getMeta() {
-        //TODO implement me!!!
+        return metaData.toString();
+    }
+
+
+    public String getData() {
+        return data.toString();
     }
 
     /**
@@ -73,11 +97,35 @@ public class Block {
      * @return filename
      */
     public String getEntryName() {
-        File entryFile= new File(entry.getPath());
+        File entryFile = new File(entry.getPath());
         return entryFile.getName();
     }
 
-    public void setMetadata(List<String> metaData){}
+    public void setMetadata(List<String> metaData) {
+        this.metaData = metaData;
+    }
+
+    public void setData(List<String> data) {
+        this.data = data;
+
+    }
+
+
+    public void setString(String string){
+        blockString = string;
+    }
+
+    /**
+     * this method builds a string representing the block from the RAF
+     * @throws IOException if there was a problem reading from the RAF
+     */
+    public void buildString() throws IOException{
+
+        String allString =IparsingRule.RAFToString(inputFile);
+        blockString = allString.substring((int)startIdx,(int)endIdx) ;
+
+
+    }
 
     /**
      * Convert an abstract block into a string
@@ -86,8 +134,6 @@ public class Block {
      */
     @Override
     public String toString() {
-        //TODO implement me!!!
+        return blockString;
     }
-
-
 }

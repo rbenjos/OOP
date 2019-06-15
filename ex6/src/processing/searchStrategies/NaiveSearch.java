@@ -23,6 +23,7 @@ public class NaiveSearch implements IsearchStrategy {
 	@Override
 	public List<WordResult> search(String query) {
 		//TODO implement me like one of your french algorithms!
+		return null;
 	}
 
 }

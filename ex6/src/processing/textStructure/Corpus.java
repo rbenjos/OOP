@@ -78,7 +78,7 @@ public class Corpus implements Iterable<Entry>, Serializable {
         String entriesMD5CheckSum = "";
         for (Entry entry : entries) {
 
-            entriesMD5CheckSum += entry.getChecksum();  // make more efficient
+            entriesMD5CheckSum += entry.getChecksum();  //TODO make more efficient
         }
         return MD5.getMd5(entriesMD5CheckSum);
     }

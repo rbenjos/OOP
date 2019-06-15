@@ -42,7 +42,7 @@ public class NaiveIndexer extends Aindexer<NaiveSearch> {
 		// does nothing
 	}
 
-	@Override
+//	@Override
 	protected void castRawData(Object readObject) {
 		// does nothing
 	}
@@ -76,6 +76,7 @@ public class NaiveIndexer extends Aindexer<NaiveSearch> {
 	public NaiveSearch asSearchInterface() {
 		return this.searchStratagy;
 	}
+
 
 
 }

@@ -3,7 +3,7 @@ package processing.textStructure;
 /**
  * This class defines a query result for multiple non-consecutive words.
  */
-public class MultyWordResult extends WordResult implements Comparable<MultyWordResult> {
+public class MultyWordResult extends WordResult { //implements Comparable<MultyWordResult>
 
 	/**
 	 * Constructor matching Super
@@ -22,6 +22,7 @@ public class MultyWordResult extends WordResult implements Comparable<MultyWordR
 	 */
 	private int calcConfidence(long[] locs) {
 		//TODO implement me!
+		return 0;
 	}
 
 	/**
@@ -29,9 +30,10 @@ public class MultyWordResult extends WordResult implements Comparable<MultyWordR
 	 * @param o The other result to compare against
 	 * @return  int representing comparison result, according to the comparable interface.
 	 */
-	@Override
+//	@Override
 	public int compareTo(MultyWordResult o) {
 		//TODO implement me!
+		return 0;
 	}
 
 	/**
@@ -43,6 +45,7 @@ public class MultyWordResult extends WordResult implements Comparable<MultyWordR
 	@Override
 	public String resultToString() {
 		//TODO implement me!
+		return null;
 	}
 
 }

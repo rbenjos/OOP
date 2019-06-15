@@ -21,6 +21,7 @@ public class NaiveSearchRK extends NaiveSearch {
 	@Override
 	public List<WordResult> search(String query){
     	//TODO implement me!
+		return null;
     }
 
 	/**

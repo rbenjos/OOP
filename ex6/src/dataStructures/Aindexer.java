@@ -77,7 +77,7 @@ public abstract class Aindexer<T extends IsearchStrategy> implements Serializabl
             Aindexer<T>  DSIndexerObject = (Aindexer<T>) DSIndexerStream.readObject();
             DSIndexerObject.origin.getChecksum();
 
-        } catch (FileNotFoundException | WrongMD5ChecksumException e){
+        } catch (FileNotFoundException e){ // | WrongMD5ChecksumException
 
         }
           catch (IOException e) {
@@ -99,7 +99,7 @@ public abstract class Aindexer<T extends IsearchStrategy> implements Serializabl
 
 
     /**
-     * Write the indernal index into file.
+     * Write the internal index into file.
      * NOTE! you may make this method not abstract if you wish.
      */
     protected abstract void writeIndexFile();
